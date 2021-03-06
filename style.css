@@ -1,0 +1,25 @@
+/***** Resets and Variables *****/
+
+/*** Variables ***/
+
+:root {
+    /* Colors */
+    --primary-color: #0049AE;
+    --secondary-color: #001947;
+    --contrast-color: #535356;
+}
+
+/*** Resets ***/
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 1em;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
