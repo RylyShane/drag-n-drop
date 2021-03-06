@@ -6,20 +6,75 @@
     /* Colors */
     --primary-color: #0049AE;
     --secondary-color: #001947;
-    --contrast-color: #535356;
+    --contrast-color: #b4b4b9;
+    --header-grad: linear-gradient(#0049AE, #001947);
 }
 
 /*** Resets ***/
 
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;  
 }
 
 body {
-    margin: 0;
-    padding: 0;
+    background-color: var(--secondary-color);
+    color: var(--contrast-color);
     font-size: 1em;
-    font-family: Arial, Helvetica, sans-serif;
 }
 
+/* App Container */
+.container {
+    width: 100vw;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
 
+.container h2 {
+    width: 100%;
+    height: 100px;
+    background-image: var(--header-grad);
+}
+
+/* Card Container */
+.card {
+    position: absolute;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: var(--primary-color);
+    color: var(--contrast-color);
+    top: 50px;
+    left: 50px;
+    box-shadow: 0;
+    transform: 0;
+    transition: transform ease-out 1s, box-shadow ease-out 1s;
+}
+
+/* Card Title */
+.card-title {
+    font-size: 2rem;
+    margin: 0 0 15px;
+}
+
+/* Card Image */
+.card-image-container {
+    margin: 0 0 15px;
+}
+
+/* Card Text */
+.card-text-container {
+    margin: 0;
+}
+
+/* Card is being held */
+.card.held {
+    /* offset-x | offset-y | blur-radius | spread-radius | color */
+    box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.5);
+    transform: translate(-2.5px, -2.5px);
+}
