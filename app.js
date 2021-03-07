@@ -1,37 +1,47 @@
 const cardsCollection = document.getElementsByClassName('card');
-
 let cards = [];
-
-for (let i =0; i < cardsCollection.length; i++) {
-    cards.push (cardsCollection.item(i));
-}
-
-let movingCard = null;
 let posXbeg = 0;
 let posYbeg = 0;
 let posXend = 0;
 let posYend = 0;
 
-let moveCard = e => {
-    posXbeg = e.clientX + e.offsetX;
-    posYbeg = e.clientY + e.offsetY;
-
-    console.log(e.target);
-    console.log(`Variables: (${posXbeg}, ${posYbeg})`);
-    console.log(`Offset   : (${e.offsetX}, ${e.offsetY})`);
-    console.log(`Client   : (${e.clientX}, ${e.clientY})`);
-    console.log(`Element  : (${this.style.left}, ${this.style.top})`);
+for (let i =0; i < cardsCollection.length; i++) {
+    cards.push(cardsCollection.item(i));
 }
 
 cards.forEach(card => {
     card.addEventListener('mousedown', e => {
-        card.classList.add('held');
-        movingCard = e.target;
-        e.target.addEventListener('mousemove', moveCard); 
+        window.setTimeout(card.classList.add('held'), 500); 
     });
+    
     card.addEventListener('mouseup', e => {
-        card.classList.remove('held');
-        movingCard = null; 
-        e.target.removeEventListener('mousemove', moveCard);
+        window.setTimeout(card.classList.remove('held'), 500);
+    });
+
+    window.addEventListener('mousemove', e => {
+        posXbeg = e.screenX;
+        posYbeg = e.screenY;
+        
+        // Set initial position so card does not jump on first drag
+        card.setAttribute('style', `
+            top: ${+(card.offsetTop)}px;
+            left: ${+(card.offsetLeft)}px;
+        `);
+
+        vectorX = posXbeg - posXend;
+        vectorY = posYbeg - posYend;
+
+        console.log(`(${vectorX}, ${vectorY})`);
+
+        if (card.classList.contains('held')) {
+            e.preventDefault();
+            card.setAttribute('style', `
+                top: ${+(card.style.top.replace('px', '')) + vectorY}px;
+                left: ${+(card.style.left.replace('px', '')) + vectorX}px;
+            `);
+        } 
+
+        posXend = posXbeg;
+        posYend = posYbeg;
     });
 });
